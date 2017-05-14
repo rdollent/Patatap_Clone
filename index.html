@@ -43,7 +43,7 @@ var abcSounds = {
   z: 'zig-zag'
 };
 
-
+counter = 0;
 function onKeyDown(event) {
   if(abcLetters.indexOf(event.key) !== -1) {   
     //get width and size of whole screen
@@ -54,7 +54,7 @@ function onKeyDown(event) {
     var point = new Point(w,h) * Point.random()
     
     //new circle placed in random point
-    var myCircle = new Path.Circle(point, 200);
+    var myCircle = new Path.Circle(point, 400);
     //circle's color picked randomly
     myCircle.fillColor = new Color(Math.random(),Math.random(),Math.random());
     
@@ -64,25 +64,50 @@ function onKeyDown(event) {
     //onFrame kicks off when pressed, animation
     myCircle.onFrame = function(event) {
     myCircle.fillColor.hue += 1;
-    circleScale -= 0.001;
+    circleScale -= 0.005;
     myCircle.scale(circleScale);
     }
     
-    var song = abcSounds[event.key] + '.mp3'
+    var song = abcSounds[event.key] + '.mp3';
     console.log(song);
     var sound = new Howl({
-      src: ['assets/sounds/' + song]
+      src: ['assets/sounds/' + song],
+      volume: 0.2
       });
 
     sound.play();
-
   }
+  
+  
+  if(event.key === 'space') {
+    if(counter === 1) {
+      var song = 'groove-loop.mp3';
+      var sound = new Howl({
+      src: ['assets/sounds/' + song],
+      loop: true
+      });
+      sound.play();
+      counter++;
+    }
+    if(counter === 0) {
+      var song = 'clap-loop.mp3';
+      var sound = new Howl({
+      src: ['assets/sounds/' + song],
+      loop: true
+      });
+      sound.play();
+      counter++;
+    }
 
+
+    
+    
+  }
 }
     
 </script>
     
-<!--<script src="assets/js/clone.js"></script>-->
+<script src="assets/js/clone.js"></script>
 </head>
   
 
