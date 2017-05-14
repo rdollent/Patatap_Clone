@@ -6,42 +6,46 @@
     <title>Patatap clone</title>
     <link href="assets/css/clone.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="assets/js/lib/paper-full.min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/howler.min.js"></script>
+    
+    
 <!-- Define inlined PaperScript associate it with myCanvas -->
 <script type="text/paperscript" canvas="chuvaChuChu">
 
+var abcLetters = 'abcdefghijklmnopqrstuvwxyz';
 
-//for(var x = 10; x <= 1000; x += 50) {
-//  for(var y = 10; y <= 1000; y += 50) {
-//   var myCircle = new Path.Circle(new Point(x,y), 10);
-//   myCircle.fillColor = 'pink';
-//  }
-//}
+var abcSounds = {
+  a: 'bubbles',
+  b: 'clay',
+  c: 'confetti',
+  d: 'corona',
+  e: 'dotted-spiral',
+  f: 'flash-1',
+  g: 'flash-2',
+  h: 'flash-3',
+  i: 'glimmer',
+  j: 'moon',
+  k: 'pinwheel',
+  l: 'piston-1',
+  m: 'piston-2',
+  n: 'piston-3',
+  o: 'prism-1',
+  p: 'prism-2',
+  q: 'prism-3',
+  r: 'splits',
+  s: 'squiggle',
+  t: 'strike',
+  u: 'suspension',
+  v: 'timer',
+  w: 'ufo',
+  x: 'veil',
+  y: 'wipe',
+  z: 'zig-zag'
+};
 
 
-var text = new PointText({
-  point: view.center,
-	fillColor: 'black',
-	content: 'Click here to focus and then press some keys',
-	justification: 'center',
-	fontSize: 11
-});
-
-//var text = new PointText(new Point(view.center));
-//text.justification = 'center';
-//text.fillColor = 'black';
-//text.content = 'The contents of the point text';
-
-//var alphabet= [];
-//for(var i = 0; i < abcs.length - 1; i++) {
-//  alphabet.push(abcs[i]);
-//}
-
-var abcs = 'abcdefghijklmnopqrstuvwxyz';
 function onKeyDown(event) {
-  
-  
-  if(abcs.indexOf(event.key) !== -1) {
-    
+  if(abcLetters.indexOf(event.key) !== -1) {   
     //get width and size of whole screen
     var w = view.viewSize.width
     var h = view.viewSize.height
@@ -62,30 +66,27 @@ function onKeyDown(event) {
     myCircle.fillColor.hue += 1;
     circleScale -= 0.001;
     myCircle.scale(circleScale);
+    }
+    
+    var song = abcSounds[event.key] + '.mp3'
+    console.log(song);
+    var sound = new Howl({
+      src: ['assets/sounds/' + song]
+      });
+
+    sound.play();
 
   }
-
-    //size?
-    //myCircle.opacity
-    //myCircle.scale
-    //text.content = view.viewSize.width
-  }
-
-
-
 
 }
-
-
-
-
-
+    
 </script>
-
+    
 <script src="assets/js/clone.js"></script>
-  </head>
-  <body>
-    <canvas id="chuvaChuChu" resize></canvas>
+</head>
+  
 
-  </body>
+<body>
+    <canvas id="chuvaChuChu" resize></canvas>
+</body>
 </html>
